@@ -1,12 +1,12 @@
 services:
   postgres:
     image: postgres:15
-    container_name: playground
+    container_name: playground_postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: playground_db
+      POSTGRES_DB: playground
     ports:
       - "5432:5432"
     volumes:
