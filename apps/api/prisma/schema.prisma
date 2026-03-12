@@ -13,3 +13,41 @@ model User {
   name  String?
   password String
 }
+
+model Project {
+  id        String    @id @default(uuid())
+  name      String
+  diagrams  Diagram[]
+  createdAt DateTime  @default(now())
+}
+
+model Diagram {
+  id        String   @id @default(uuid())
+  name      String
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  nodes     Node[]
+  edges     Edge[]
+  createdAt DateTime @default(now())
+}
+
+model Node {
+  id        String  @id @default(uuid())
+  diagramId String
+  type      String
+  x         Float
+  y         Float
+  data      Json?
+
+  diagram   Diagram @relation(fields: [diagramId], references: [id])
+}
+
+model Edge {
+  id        String  @id @default(uuid())
+  diagramId String
+  source    String
+  target    String
+  label     String?
+
+  diagram   Diagram @relation(fields: [diagramId], references: [id])
+}
